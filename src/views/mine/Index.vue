@@ -1,12 +1,12 @@
 <template>
-  <div class="home">
-    home
+  <div class="mine">
+    mine
   </div>
 </template>
 
 <script>
 export default {
-  name: 'home',
+  name: 'mine',
   props: {
     propName: {
       // type: number,
