@@ -4,21 +4,34 @@
 
 <script>
 export default {
+  name: '',
+  components: {},
+  directives: {},
+  filters: {},
+  mixins: {},
   props: {
     propName: {
       type: Number,
       default: 0
     }
   },
-  components: {},
   data() {
     return {
-      //   key: value
+      key: 'value'
     }
   },
   computed: {},
   watch: {},
+  beforeCreate() {},
+  created() {},
+  beforeMount() {},
   mounted() {},
+  beforeUpdate() {},
+  updated() {},
+  activated() {},
+  deactivated() {},
+  beforeDestroy() {},
+  destroyed() {},
   methods: {}
 }
 </script>
