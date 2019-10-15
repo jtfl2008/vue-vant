@@ -30,8 +30,8 @@ axios.interceptors.request.use(
 // 返回状态判断(添加响应拦截器)
 axios.interceptors.response.use(
   res => {
-    if (res.data.code === 0) {
-      return res
+    if (res.data.code === 200) {
+      return res.data.data
     } else {
       return Promise.reject(res)
     }
@@ -50,8 +50,8 @@ export function get(url, params) {
         params: params
       })
       .then(
-        res => {
-          resolve(res.data.data)
+        data => {
+          resolve(data)
         },
         err => {
           reject(err)
@@ -67,8 +67,8 @@ export function post(url, params) {
     axios
       .post(url, params)
       .then(
-        res => {
-          resolve(res.data.data)
+        data => {
+          resolve(data)
         },
         err => {
           reject(err)
@@ -79,3 +79,73 @@ export function post(url, params) {
       })
   })
 }
+
+// import axios from 'axios'
+// import Cookies from 'js-cookie'
+// import { Loading } from 'element-ui'
+// let loading
+// let pending = []
+// let CancelToken = axios.CancelToken
+
+// let cancelPending = config => {
+//   pending.forEach((item, index) => {
+//     if (config) {
+//       if (item.UrlPath === config.url) {
+//         item.Cancel() // 取消请求
+//         pending.splice(index, 1) // 移除当前请求记录
+//       }
+//     } else {
+//       item.Cancel() // 取消请求
+//       pending.splice(index, 1) // 移除当前请求记录
+//     }
+//   })
+// }
+
+// let startLoading = () => {
+//   // 使用Element loading-start 方法
+//   loading = Loading.service({
+//     lock: true,
+//     text: '加载中……'
+//     // background: 'rgba(0, 0, 0, 0.7)'
+//   })
+// }
+// let endLoading = () => {
+//   // 使用Element loading-close 方法
+//   loading.close()
+// }
+// // 创建axios实例
+// const service = axios.create({
+//   baseURL: process.env.BASE_API, // api的base_url
+//   timeout: 600000 // 请求超时时间
+// })
+
+// service.interceptors.request.use(
+//   config => {
+//     if (Cookies.get('Admin-Token')) {
+//       config.headers['Authorization'] = Cookies.get('Admin-Token')
+//     }
+//     cancelPending(config)
+//     config.cancelToken = new CancelToken(res => {
+//       pending.push({ UrlPath: config.url, Cancel: res })
+//     })
+//     startLoading()
+//     return config
+//   },
+//   (error, response) => {
+//     console.log(error)
+//     console.log(response)
+//   }
+// )
+
+// service.interceptors.response.use(
+//   response => {
+//     endLoading()
+//     cancelPending(response.config)
+//     return response.data
+//   },
+//   error => {
+//     console.log(error)
+//     return Promise.reject(error)
+//   }
+// )
+// export default service
